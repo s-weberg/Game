@@ -32,7 +32,7 @@ const words = [
   "north",
 ];
 
-//Initializing word
+//Initializing words
 let randomWord;
 
 //Initializing score
