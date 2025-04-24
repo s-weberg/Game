@@ -41,7 +41,7 @@ let score = 0;
 
 //Initializing time
 let time = 10;
-let timeInterval = setInterval(updateTime, 1000);
+//let timeInterval = setInterval(updateTime, 1000);
 
 function getRandomWord() {
     return words[Math.floor(Math.random() * words.length)];
@@ -49,7 +49,7 @@ function getRandomWord() {
 
 function addWord() {
     randomWord = getRandomWord();
-    words.innerHTML = randomWord; 
+    word.innerHTML = randomWord; 
 }
 
 function updateScore() {
@@ -61,7 +61,7 @@ text.addEventListener("input", (e) => {
     const newText = e.target.value.trim();
     if (newText === randomWord) {
         updateScore();
-        getRandomWord();
+        addWord();
         
         time += 5;
         timeEl.innerHTML = time;
@@ -74,13 +74,13 @@ text.addEventListener("input", (e) => {
 
 let timer;
 
-function updateTime() {
+function updateTimer() {
         timer = setInterval(() => {
         time --;
 
         timeEl.innerHTML = time;
         if (time === 0) {
-            clearInterval(timeInterval);
+            clearInterval(timer);
             gameOver();
         }
     }, 1000);
@@ -91,6 +91,6 @@ function gameOver() {
     endgameEl.style.display = "block";
 }
 
-getRandomWord();
+addWord();
 
-updateTime();
+updateTimer();
