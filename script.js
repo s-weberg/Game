@@ -35,6 +35,7 @@ const words = [
 //Initializing words
 let randomWord;
 
+
 //Initializing score
 let score = 0;
 
@@ -42,38 +43,54 @@ let score = 0;
 let time = 10;
 let timeInterval = setInterval(updateTime, 1000);
 
-function GetrandomWord() {
-    return words[Math.floor(Math.random() * words.lenght)];
+function getRandomWord() {
+    return words[Math.floor(Math.random() * words.length)];
 }
 
 function addWord() {
-    getWord = GetrandomWord();
-    word.innerHTML = getWord; 
+    randomWord = getRandomWord();
+    words.innerHTML = randomWord; 
 }
 
 function updateScore() {
-    score++;
-    scoreElement.innerText = score
+    score ++;
+    scoreEl.innerText = score;
 }
 
-textInput.addEventListener("input", (event) => {
-    const Text = event.target.value;
-    if(Text === getWord) {
-        addWord();
-
+text.addEventListener("input", (e) => {
+    const newText = e.target.value.trim();
+    if (newText === randomWord) {
         updateScore();
+        getRandomWord();
+        
+        time += 5;
+        timeEl.innerHTML = time;
+        e.target.value = "";
     }
-})
+});
 
 
 //Time
+
+let timer;
+
 function updateTime() {
-   time--;
+        timer = setInterval(() => {
+        time --;
 
-    timeElement.innerHTML = time + "s";
-    if (time === 0) {
-        clearInterval(timeInterval);
-    }
-    gameOver();
-
+        timeEl.innerHTML = time;
+        if (time === 0) {
+            clearInterval(timeInterval);
+            gameOver();
+        }
+    }, 1000);
 }
+
+function gameOver() {
+    const endgameEl = document.getElementById("end-game-container");
+    endgameEl.style.display = "block";
+}
+
+getRandomWord();
+
+updateTime();
